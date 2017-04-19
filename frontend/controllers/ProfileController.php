@@ -102,6 +102,8 @@ class ProfileController extends Controller
 			
 			if ($picture->load(Yii::$app->request->post()) ) {
 				
+				if(!empty(UploadedFile::getInstances($picture, 'file'))){
+				
 				
 				 $files_usage = FilesUsage::find()
 								->where(['entity_id' => $id, 'entity_type' => 'profile'])
@@ -118,9 +120,6 @@ class ProfileController extends Controller
 							
 							if (file_exists(($basepath).'/web/'.$file->path)) {
 								
-								//echo ($basepath).'/web'.$file->path;
-								
-							//chmod ((\Yii::$app->basePath).'/web/uploads', 777 );
 							unlink(($basepath).'/web/'.$file->path);
 						}	
 							
@@ -131,6 +130,7 @@ class ProfileController extends Controller
 				}
 				
 				 return $this->redirect(['view', 'id' => $model->id]);	
+			}
 				
 		}
 			

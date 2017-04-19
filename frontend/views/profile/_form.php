@@ -15,7 +15,7 @@ use kartik\file\FileInput;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+   
 
     <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
 
