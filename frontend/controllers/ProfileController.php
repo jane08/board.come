@@ -92,6 +92,7 @@ class ProfileController extends Controller
     {
         $model = $this->findModel($id);
 		
+		
 		 $picture = new Files();
         $files_usage = FilesUsage::find()
             ->where(['entity_id' => $model->id,'entity_type' => 'profile'])
@@ -100,12 +101,41 @@ class ProfileController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			
 			if ($picture->load(Yii::$app->request->post()) ) {
-					$this->UploadFiles($model,$picture);
 				
+				
+				 $files_usage = FilesUsage::find()
+								->where(['entity_id' => $id, 'entity_type' => 'profile'])
+								->one();
+				 $file = Files::find()
+							->where(['id' => $files_usage->file_id])
+							->one();
+					$basepath =  \Yii::$app->basePath;	
+							
+						if(isset($files_usage)){
+							$files_usage->delete();
+						}
+						if(isset($file)){
+							
+							if (file_exists(($basepath).'/web/'.$file->path)) {
+								
+								//echo ($basepath).'/web'.$file->path;
+								
+							//chmod ((\Yii::$app->basePath).'/web/uploads', 777 );
+							unlink(($basepath).'/web/'.$file->path);
+						}	
+							
+							$file->delete();
+						}		
+						
+					$this->UploadFiles($model,$picture);
 				}
+				
+				 return $this->redirect(['view', 'id' => $model->id]);	
+				
+		}
 			
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+           
+         else {
             return $this->render('update', [
                 'model' => $model,
 				'picture' => $picture,
@@ -137,7 +167,7 @@ class ProfileController extends Controller
         $date = new  \DateTime('now', new \DateTimeZone('Europe/Kiev'));
         $date=$date->format('Y-m-d');
         list($y, $m, $d) = explode("-", $date);
-        $BaseFileHelper->createDirectory ((\Yii::$app->basePath).'/web/uploads/'.$obj_id.'_'.$y.'/'.$m.$d.'/', $mode = 0755, $recursive = true );
+        $BaseFileHelper->createDirectory ((\Yii::$app->basePath).'/web/uploads/'.$obj_id.'_'.$y.'/'.$m.$d.'/', $mode = 0777, $recursive = true );
          $date = new  \DateTime('now', new \DateTimeZone('Europe/Kiev'));
 		 $added_date = $date->format('Y-m-d H:i:s');
 //--- end of creating directory

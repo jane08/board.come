@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Files;
+use common\models\FilesUsage;
 use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
@@ -38,6 +40,35 @@ use kartik\file\FileInput;
 			]);
 	
 	?>
+	<div class='files_usage'>
+    <?php
+	if(isset($files_usage)){
+    foreach ($files_usage as $fls => $fs) {
+
+        $files = Files::find()
+            ->where(['id' => $fs->file_id])
+            ->one();
+
+        
+      
+       echo Html::img('/frontend/web'.$files->path ,['class'=>'img_size']);
+
+	   /*
+	   if (Yii::$app->user->can('admin')) {
+            echo "<span class='delete_fu glyphicon glyphicon-remove btn btn-danger' data-file_id='" . ($fs->file_id) . "' data-entity_id='" . ($fs->entity_id) . "'
+		data-entity_type='" . ($fs->entity_type) . "'>
+			</span>";
+        }
+
+        echo "</p>";
+    }
+	*/
+	}
+	}
+    ?>
+
+	</div>
+	
 <br />
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
