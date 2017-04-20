@@ -17,6 +17,7 @@ use common\models\Category;
 use common\models\SubCategory;
 use common\models\Ad;
 use yii\data\Pagination;
+use common\models\AuthAssignment;
 
 /**
  * Site controller
@@ -199,7 +200,17 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-				
+
+
+                /*$as = new AuthAssignment();
+                $as->user_id = $user->id;
+                $as->item_name = 'advertiser';*/
+                $sql = 'INSERT INTO `auth_assignment`(`item_name`, `user_id`) VALUES ("advertiser","'.($user->id).'")';
+                $command = \Yii::$app->db->createCommand($sql);
+                $command->execute();
+
+
+
 				$profile = new Profile();
 				$profile->user_id = $user->id;
 				$profile->save();
