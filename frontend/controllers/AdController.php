@@ -75,6 +75,11 @@ class AdController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
 
             $model->user_id = Yii::$app->user->identity->id;
+            $date = new  \DateTime('now', new \DateTimeZone('Europe/Kiev'));
+
+            $model->created_at = $date->format('Y-m-d H:i:s');
+            $model->updated_at = $date->format('Y-m-d H:i:s');
+
             $model->save();
 
             if ($picture->load(Yii::$app->request->post()) ) {
@@ -108,7 +113,12 @@ class AdController extends Controller
             ->where(['entity_id' => $model->id,'entity_type' => 'ad'])
             ->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())  ) {
+            $date = new  \DateTime('now', new \DateTimeZone('Europe/Kiev'));
+            $model->updated_at = $date->format('Y-m-d H:i:s');
+            $model->save();
+
+
             if ($picture->load(Yii::$app->request->post()) ) {
 
                 if(!empty(UploadedFile::getInstances($picture, 'file'))){

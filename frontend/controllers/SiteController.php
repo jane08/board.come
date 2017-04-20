@@ -16,6 +16,7 @@ use common\models\Profile;
 use common\models\Category;
 use common\models\SubCategory;
 use common\models\Ad;
+use yii\data\Pagination;
 
 /**
  * Site controller
@@ -77,10 +78,50 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
+        $query = Ad::find();
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>5]);
+        $ads = $query->offset($pagination->offset)
+            ->orderBy([
+                'updated_at' => SORT_DESC
+            ])
+            ->limit(5)
+            ->all();
 
-
-        return $this->render('index');
+        return $this->render('index', [
+            'ads' => $ads,
+            'pagination' => $pagination,
+        ]);
     }
+
+    public function actionAdDetails($id)
+    {
+
+        $ad = Ad::find()->where(['id' => $id ])->one();
+        $profile = Profile::find()->where(['user_id' => $ad->user_id ])->one();
+
+        return $this->render('ad_details', [
+            'ad' => $ad,
+            'profile' => $profile,
+
+        ]);
+    }
+
+    public function actionProfileAds($id)
+    {
+
+
+        $profile = Profile::find()->where(['id' => $id ])->one();
+        $ads = Ad::find()->where(['user_id' => $profile->user_id ])->all();
+
+        return $this->render('profile_ads', [
+            'ads' => $ads,
+            'profile' => $profile,
+
+        ]);
+    }
+
+
 
     /**
      * Logs in a user.

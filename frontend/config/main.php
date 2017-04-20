@@ -43,6 +43,8 @@ return [
             'rules' => [
                 '/profile'=>'profile/index/',
                 '/ad'=>'ad/index/',
+                '/ad-details/<id:\d+>'=>'site/ad-details/',
+                '/profile-ads/<id:\d+>'=>'site/profile-ads/',
 				'<action>'=>'site/<action>',
 
 				'<controller:\w+>/<id:\d+>' => '<controller>/view',

@@ -30,7 +30,7 @@ $this->title = 'Доска объявлений';
         <div class="col-sm-4">
             <div class="thumbnail">
                 <img src="/frontend/web/<?= $file->path ?>"  width="400" height="300" alt="pic_<?= $f ?>">
-                <h3><?= \yii\helpers\StringHelper::truncate($ad->title,20,'...') ?></h3>
+                <h3><?=  \yii\helpers\StringHelper::truncate($ad->title,20,'...') ?></h3>
                 <p> <h2><?= $ad->price ?> $</h2></p>
                 <p> <?= Html::a('Подробнее', Yii::getAlias('@myCssAlias'), ['class' => 'button9']) ?> </p>
             </div>
@@ -42,9 +42,9 @@ $this->title = 'Доска объявлений';
     <div class="jumbotron text-center">
 
     <?php
-    echo LinkPager::widget([
+   /* echo LinkPager::widget([
         'pagination' => $pagination,
-    ]);
+    ]);*/
 
     ?>
     </div>

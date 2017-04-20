@@ -37,6 +37,8 @@ class Ad extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['price'], 'number'],
             [['title'], 'string', 'max' => 255],
+            [['created_at'], 'safe'],
+            [['updated_at'], 'safe'],
         ];
     }
 
@@ -53,6 +55,8 @@ class Ad extends \yii\db\ActiveRecord
             'title' => 'Титул',
             'description' => 'Описание',
             'price' => 'Стоимость',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
     }
 }
