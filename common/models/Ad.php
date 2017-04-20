@@ -16,6 +16,8 @@ use Yii;
  */
 class Ad extends \yii\db\ActiveRecord
 {
+	
+	public $category_id;
     /**
      * @inheritdoc
      */
@@ -46,10 +48,11 @@ class Ad extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'subcategory_id' => 'Subcategory ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'price' => 'Price',
+            'category_id' => 'Категория',
+            'subcategory_id' => 'Подкатегория',
+            'title' => 'Титул',
+            'description' => 'Описание',
+            'price' => 'Стоимость',
         ];
     }
 }

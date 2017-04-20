@@ -40,6 +40,7 @@ use kartik\file\FileInput;
 			]);
 	
 	?>
+    <br />
 	<div class='files_usage'>
     <?php
 	if(isset($files_usage)){
@@ -53,17 +54,7 @@ use kartik\file\FileInput;
       
        echo Html::img('/frontend/web'.$files->path ,['class'=>'img_size']);
 
-	   /*
-	   if (Yii::$app->user->can('admin')) {
-            echo "<span class='delete_fu glyphicon glyphicon-remove btn btn-danger' data-file_id='" . ($fs->file_id) . "' data-entity_id='" . ($fs->entity_id) . "'
-		data-entity_type='" . ($fs->entity_type) . "'>
-			</span>";
-        }
-
-        echo "</p>";
-    }
-	*/
-	}
+	    }
 	}
     ?>
 
@@ -71,7 +62,7 @@ use kartik\file\FileInput;
 	
 <br />
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -43,9 +43,9 @@ class Profile extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'fio' => 'Fio',
-            'phone' => 'Phone',
-            'address' => 'Address',
+            'fio' => 'ФИО',
+            'phone' => 'Телефон',
+            'address' => 'Адрес',
         ];
     }
 }

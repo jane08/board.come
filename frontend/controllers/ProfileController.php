@@ -40,9 +40,9 @@ class ProfileController extends Controller
      */
     public function actionIndex()
     {
-		 // if (Yii::$app->user->can('admin')) {
-			  // throw new ForbiddenHttpException('Вы не админ,)');
-		  // }
+		  if (!Yii::$app->user->can('admin')) {
+			   throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+		   }
         $searchModel = new ProfileSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,8 +59,16 @@ class ProfileController extends Controller
      */
     public function actionView($id)
     {
+
+        $model = $this->findModel($id);
+
+
+        if (Yii::$app->user->identity->id != $model->user_id) {
+            throw new ForbiddenHttpException('Вы не можете заходить в чужой профиль!');
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -71,6 +79,10 @@ class ProfileController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Вы не можете создавать профили');
+        }
+        /*
         $model = new Profile();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -80,6 +92,7 @@ class ProfileController extends Controller
                 'model' => $model,
             ]);
         }
+        */
     }
 
     /**
@@ -91,10 +104,12 @@ class ProfileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-		
+        if (Yii::$app->user->identity->id != $model->user_id) {
+            throw new ForbiddenHttpException('Вы не можете заходить в чужой профиль!');
+        }
 		
 		 $picture = new Files();
-        $files_usage = FilesUsage::find()
+         $files_usage = FilesUsage::find()
             ->where(['entity_id' => $model->id,'entity_type' => 'profile'])
             ->all();
 

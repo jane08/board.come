@@ -13,6 +13,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\Profile;
+use common\models\Category;
+use common\models\SubCategory;
+use common\models\Ad;
 
 /**
  * Site controller
@@ -73,6 +76,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+
+
         return $this->render('index');
     }
 

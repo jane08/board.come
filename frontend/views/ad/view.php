@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Profile */
+/* @var $model common\models\Ad */
 
-$this->title = $model->id;
-//$this->params['breadcrumbs'][] = ['label' => 'Профиль', 'url' => ['index']];
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Все объявления', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="profile-view">
+<div class="ad-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить это объявление?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -30,9 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
            // 'user_id',
-            'fio',
-            'phone',
-            'address',
+            'subcategory_id',
+            'title',
+            'description:ntext',
+            'price',
         ],
     ]) ?>
 

@@ -4,18 +4,20 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ProfileSearch */
+/* @var $searchModel common\models\SubCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Профили';
+$this->title = 'Подкатегории';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="profile-index">
+<div class="sub-category-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-
+    <p>
+        <?= Html::a('Добавить подкатегорию', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -23,10 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-          //  'user_id',
-            'fio',
-            'phone',
-            'address',
+            'category_id',
+            'name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
