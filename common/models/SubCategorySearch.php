@@ -18,8 +18,8 @@ class SubCategorySearch extends SubCategory
     public function rules()
     {
         return [
-            [['id', 'category_id'], 'integer'],
-            [['name'], 'safe'],
+            [['id'], 'integer'],
+            [['name','category_id'], 'safe'],
         ];
     }
 
@@ -42,12 +42,20 @@ class SubCategorySearch extends SubCategory
     public function search($params)
     {
         $query = SubCategory::find();
+        $query->joinWith(['category']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['category'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['category.name' => SORT_ASC],
+            'desc' => ['category.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -60,10 +68,11 @@ class SubCategorySearch extends SubCategory
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_id' => $this->category_id,
+           // 'category_id' => $this->category_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'category.name', $this->category_id]);
 
         return $dataProvider;
     }

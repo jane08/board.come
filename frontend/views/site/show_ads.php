@@ -6,26 +6,10 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Доска объявлений';
+
 ?>
-<div class="site-index">
-    <div class="jumbotron text-center">
-    <div class="row text-center slideanim">
-        <?php foreach($categories as $category){ ?>
-        <div class="col-sm-3">
-            <span class="cat_name s1" data-catid="<?= $category->id ?>">  <?php echo $category->name; ?> </span>
-        </div>
-        <?php  } ?>
 
 
-    </div>
-        <div class="container text-center  subcats">
-
-        </div>
-    </div>
-    <br />
-    <hr />
-    <div class="ajax_ad">
     <div class="row text-center slideanim">
         <?php
         $f=0;
@@ -63,6 +47,6 @@ $this->title = 'Доска объявлений';
 
     ?>
     </div>
-    </div>
 
-</div>
+
+

@@ -41,6 +41,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/<id:\d+>'=>'site/index/',
                 '/profile'=>'profile/index/',
                 '/ad'=>'ad/index/',
                 '/ad-details/<id:\d+>'=>'site/ad-details/',

@@ -18,6 +18,7 @@ use common\models\SubCategory;
 use common\models\Ad;
 use yii\data\Pagination;
 use common\models\AuthAssignment;
+use yii\web\Session;
 
 /**
  * Site controller
@@ -76,10 +77,21 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id=0)
     {
 
-        $query = Ad::find();
+       $session = Yii::$app->session;
+        $session['subcat_id']=$id;
+        $session->open();
+        if($session['subcat_id']!=0) {
+           // echo "<br><br><br>". $session['subcat_id'];
+           // $session->destroy();
+            $query = Ad::find()->where(['subcategory_id' =>$session['subcat_id']]);
+        }
+        else {
+            $query = Ad::find();
+        }
+        $session->destroy();
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>5]);
         $ads = $query->offset($pagination->offset)
@@ -89,9 +101,42 @@ class SiteController extends Controller
             ->limit(5)
             ->all();
 
+        $categories = Category::find()->all();
+
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $subcat_id= explode(":", $data['subcat_id']);
+            $subcat_id= $subcat_id[0];
+
+//             $session = Yii::$app->session;
+//             $session->open();
+             $session['subcat_id'] = $subcat_id;
+            // echo "<br><br><br>". $session['subcat_id'];
+
+            $query = Ad::find()->where(['subcategory_id' =>$subcat_id]);
+            $count = $query->count();
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>5]);
+
+            $ads = $query->offset($pagination->offset)
+                ->orderBy([
+                    'updated_at' => SORT_DESC
+                ])
+                ->limit(5)
+                ->all();
+
+            return $this->renderAjax('show_ads', [
+                'ads' => $ads,
+                'pagination' => $pagination,
+
+            ]);
+
+        }
+
+
         return $this->render('index', [
             'ads' => $ads,
             'pagination' => $pagination,
+            'categories' => $categories,
         ]);
     }
 
@@ -107,6 +152,62 @@ class SiteController extends Controller
 
         ]);
     }
+
+
+    public function actionShowSubCat()
+    {
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $category_id= explode(":", $data['category_id']);
+            $category_id= $category_id[0];
+
+            $subcats=SubCategory::find()
+                ->where(['category_id' =>$category_id])
+                ->all();
+
+
+            return $this->renderAjax('show_subcats', [
+                'subcats' => $subcats,
+
+
+            ]);
+
+        }
+    }
+
+    public function ShowAds()
+    {
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $subcat_id= explode(":", $data['subcat_id']);
+            $subcat_id= $subcat_id[0];
+
+           /* $session = Yii::$app->session;
+
+            $session->open();
+            $session['subcat_id'] = $subcat_id;
+            echo "<br><br><br>". $session['subcat_id'];*/
+
+            $query = Ad::find()->where(['subcategory_id' =>$subcat_id]);
+            $count = $query->count();
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>5]);
+
+            $ads = $query->offset($pagination->offset)
+                ->orderBy([
+                    'updated_at' => SORT_DESC
+                ])
+                ->limit(5)
+                ->all();
+
+            return $this->renderAjax('show_ads', [
+                'ads' => $ads,
+                'pagination' => $pagination,
+
+            ]);
+
+        }
+    }
+
 
     public function actionProfileAds($id)
     {
