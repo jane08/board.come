@@ -67,8 +67,8 @@ class AdSearch extends Ad
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
+            'ad.id' => $this->id,
+            'ad.user_id' => $this->user_id,
            // 'subcategory_id' => $this->subcategory_id,
             'price' => $this->price,
         ]);

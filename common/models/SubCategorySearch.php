@@ -67,7 +67,7 @@ class SubCategorySearch extends SubCategory
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'sub_category.id' => $this->id,
            // 'category_id' => $this->category_id,
         ]);
 

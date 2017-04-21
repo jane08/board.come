@@ -18,8 +18,8 @@ class ProfileSearch extends Profile
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
-            [['fio', 'phone', 'address'], 'safe'],
+            [['id'], 'integer'],
+            [['fio', 'phone', 'address','user_id'], 'safe'],
         ];
     }
 
@@ -42,12 +42,19 @@ class ProfileSearch extends Profile
     public function search($params)
     {
         $query = Profile::find();
-
+        $query->joinWith(['user']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['user'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['user.name' => SORT_ASC],
+            'desc' => ['user.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -59,12 +66,13 @@ class ProfileSearch extends Profile
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
+            'profile.id' => $this->id,
+           // 'user_id' => $this->user_id,
         ]);
 
         $query->andFilterWhere(['like', 'fio', $this->fio])
             ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'user.username', $this->user_id])
             ->andFilterWhere(['like', 'address', $this->address]);
 
         return $dataProvider;

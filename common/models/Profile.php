@@ -48,4 +48,9 @@ class Profile extends \yii\db\ActiveRecord
             'address' => 'Адрес',
         ];
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
 }
