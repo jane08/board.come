@@ -26,7 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
            // 'user_id',
-            'subcategory_id',
+            [
+                'label'=>'Подкатегории',
+                'attribute'=>'subcategory_id',
+                'value'=> 'sub.name',
+            ],
+
             'title',
            // 'description:ntext',
              'price',

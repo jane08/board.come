@@ -59,4 +59,12 @@ class Ad extends \yii\db\ActiveRecord
             'updated_at' => 'Дата изменения',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSub()
+    {
+        return $this->hasOne(SubCategory::className(), ['id' => 'subcategory_id']);
+    }
 }

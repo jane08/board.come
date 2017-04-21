@@ -18,8 +18,8 @@ class AdSearch extends Ad
     public function rules()
     {
         return [
-            [['id', 'user_id', 'subcategory_id'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['id', 'user_id'], 'integer'],
+            [['title', 'description','subcategory_id'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -43,12 +43,19 @@ class AdSearch extends Ad
     public function search($params)
     {
         $query = Ad::find()->where(['user_id' => Yii::$app->user->identity->id]);
-
+        $query->joinWith(['sub']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['sub'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['sub.name' => SORT_ASC],
+            'desc' => ['sub.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -62,12 +69,13 @@ class AdSearch extends Ad
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'subcategory_id' => $this->subcategory_id,
+           // 'subcategory_id' => $this->subcategory_id,
             'price' => $this->price,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'sub_category.name', $this->subcategory_id]);
 
         return $dataProvider;
     }

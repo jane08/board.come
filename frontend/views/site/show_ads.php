@@ -3,6 +3,7 @@ use yii\widgets\LinkPager;
 use common\models\Files;
 use common\models\FilesUsage;
 use yii\helpers\Html;
+use yii\web\ForbiddenHttpException;
 
 /* @var $this yii\web\View */
 
@@ -12,6 +13,10 @@ use yii\helpers\Html;
 
     <div class="row text-center slideanim">
         <?php
+        if(empty($ads)){
+           echo ('Результаты не найдены! Попробуйте выбрать другую подкатегорию');
+        }
+
         $f=0;
         foreach($ads as $ad)
         {
