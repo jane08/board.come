@@ -8,6 +8,7 @@ use common\models\ProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -35,6 +36,9 @@ class ProfileController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $searchModel = new ProfileSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,6 +55,9 @@ class ProfileController extends Controller
      */
     public function actionView($id)
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +70,9 @@ class ProfileController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $model = new Profile();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +92,9 @@ class ProfileController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +114,9 @@ class ProfileController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

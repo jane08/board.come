@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 use common\models\Files;
 use common\models\FilesUsage;
 use yii\helpers\BaseFileHelper;
+use common\models\User;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -67,8 +68,11 @@ class ProfileController extends Controller
             throw new ForbiddenHttpException('Вы не можете заходить в чужой профиль!');
         }
 
+        $profile=$model;
+       // $user = User::find()->where(['id'=>$profile->user_id])->one();
         return $this->render('view', [
-            'model' => $model,
+            'profile' => $profile,
+          //  'user' => $user,
         ]);
     }
 

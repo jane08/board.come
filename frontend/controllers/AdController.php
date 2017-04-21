@@ -57,8 +57,12 @@ class AdController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        if (Yii::$app->user->identity->id != $model->user_id) {
+            throw new ForbiddenHttpException('Вы не можете редактировать чужие объявления!');
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -106,7 +110,13 @@ class AdController extends Controller
      */
     public function actionUpdate($id)
     {
+
         $model = $this->findModel($id);
+
+        if (Yii::$app->user->identity->id != $model->user_id) {
+            throw new ForbiddenHttpException('Вы не можете редактировать чужие объявления!');
+        }
+
 
         $picture = new Files();
         $files_usage = FilesUsage::find()

@@ -8,6 +8,7 @@ use common\models\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -35,6 +36,9 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -63,6 +67,9 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $model = new Category();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +89,9 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +111,9 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can('admin')) {
+            throw new ForbiddenHttpException('Только администратор может просматривать эту страницу!');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -42,7 +42,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-			
+                '' => 'site/index',
+                '/profile'=>'profile/index/',
+                '/category'=>'category/index/',
+                '/sub-category'=>'sub-category/index/',
 				'<action>'=>'site/<action>',
 				'<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

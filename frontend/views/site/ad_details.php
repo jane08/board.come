@@ -72,8 +72,8 @@ $this->title = $ad->title;
                 <div class="thumbnail">
                     <img src="/frontend/web/<?= $file->path ?>" width="400" height="300" alt="pic_1">
                     <h3><?= $profile->fio ?></h3>
-                    <p>
-                    <h3>Телефон:<?= $profile->phone ?> </h3></p>
+
+                    <h3>Телефон:<?= $profile->phone ?> </h3>
                     <p> <?= Html::a('Все объявления этого пользователя', Yii::getAlias('@myCssAlias'), ['class' => 'button9']) ?> </p>
 
                 </div>

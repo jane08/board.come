@@ -28,10 +28,10 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Admin Board',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbarmy navbar-fixed-top',
         ],
     ]);
     $menuItems = [
@@ -40,6 +40,11 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+    if (Yii::$app->user->can('admin')) {
+        $menuItems[] = ['label' => 'Категории', 'url' => ['/category/']];
+        $menuItems[] = ['label' => 'Подкатегории', 'url' => ['/sub-category/']];
+        $menuItems[] = ['label' => 'Профили', 'url' => ['/profile/']];
+    }
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -67,9 +72,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Board <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"></p>
     </div>
 </footer>
 

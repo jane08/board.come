@@ -8,9 +8,55 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+
+    background: -moz-linear-gradient(263deg, rgba(247,252,255,1) 0%, rgba(247,252,255,1) 41%, rgba(130,136,255,1) 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(247,252,255,1)), color-stop(41%, rgba(247,252,255,1)), color-stop(100%, rgba(130,136,255,1))); /* safari4+,chrome */
+    background: -webkit-linear-gradient(263deg, rgba(247,252,255,1) 0%, rgba(247,252,255,1) 41%, rgba(130,136,255,1) 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(263deg, rgba(247,252,255,1) 0%, rgba(247,252,255,1) 41%, rgba(130,136,255,1) 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(263deg, rgba(247,252,255,1) 0%, rgba(247,252,255,1) 41%, rgba(130,136,255,1) 100%); /* ie10+ */
+    background: linear-gradient(187deg, rgba(247,252,255,1) 0%, rgba(247,252,255,1) 41%, rgba(130,136,255,1) 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7FCFF', endColorstr='#8288FF',GradientType=0 ); /* ie6-9 */
+
+}
+
+.navbarmy{
+    color: #fff;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(128,0,128,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,1) 100%); /* ff3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(128,0,128,1)), color-stop(48%, rgba(0,0,0,1)), color-stop(100%, rgba(0,0,0,1))); /* safari4+,chrome */
+    background:-webkit-radial-gradient(center, ellipse cover, rgba(128,0,128,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,1) 100%); /* safari5.1+,chrome10+ */
+    background: -o-radial-gradient(center, ellipse cover, rgba(128,0,128,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,1) 100%); /* opera 11.10+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(128,0,128,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,1) 100%); /* ie10+ */
+    background:radial-gradient(ellipse at center, rgba(128,0,128,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,1) 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#800080', endColorstr='#000000',GradientType=1 ); /* ie6-9 */
+}
+.navbarmy a {
+    color: #fff;
+}
+
+.navbar-nav > li > a:hover  {
+    background: #800080;
+}
+
+.navbarmy button{
+    color: #fff;
+}
+.navbarmy button:hover{
+    color: #fff;
+}
+
+.navbar-toggle {
+
+    background: #800080;
+}
+.navbar-toggle .icon-bar {
+    background: #fff;
+}
+.navbar-toggle .icon-bar + .icon-bar {
+    background: #fff;
 }
 
 .wrap > .container {
+
     padding: 70px 15px 20px;
 }
 
