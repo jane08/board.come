@@ -38,5 +38,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
-
+    <img src="/frontend/web/<?= $file->path ?>" width="400" height="300" alt="pic_1">
 </div>

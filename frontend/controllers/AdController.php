@@ -58,11 +58,19 @@ class AdController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $files_usage = FilesUsage::find()
+            ->where(['entity_id' => $model->id, 'entity_type' => 'ad'])
+            ->one();
+        $file = Files::find()
+            ->where(['id' => $files_usage->file_id])
+            ->one();
         if (Yii::$app->user->identity->id != $model->user_id) {
             throw new ForbiddenHttpException('Вы не можете редактировать чужие объявления!');
         }
         return $this->render('view', [
             'model' => $model,
+            'files_usage' => $files_usage,
+            'file' => $file,
         ]);
     }
 

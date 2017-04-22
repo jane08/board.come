@@ -122,7 +122,9 @@ fieldset, label {
 
 /* -- end Rating*/
 
-
+.load{
+    display:none;
+}
 
 
 .wrap > .container {

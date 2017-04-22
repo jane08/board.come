@@ -95,12 +95,12 @@ class SiteController extends Controller
         }
         $session->destroy();
         $count = $query->count();
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>5]);
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>20]);
         $ads = $query->offset($pagination->offset)
             ->orderBy([
                 'updated_at' => SORT_DESC
             ])
-            ->limit(5)
+            ->limit(20)
             ->all();
 
         $categories = Category::find()->all();
@@ -117,13 +117,13 @@ class SiteController extends Controller
 
             $query = Ad::find()->where(['subcategory_id' =>$subcat_id]);
             $count = $query->count();
-            $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>5]);
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>20]);
 
             $ads = $query->offset($pagination->offset)
                 ->orderBy([
                     'updated_at' => SORT_DESC
                 ])
-                ->limit(5)
+                ->limit(20)
                 ->all();
 
             return $this->renderAjax('show_ads', [

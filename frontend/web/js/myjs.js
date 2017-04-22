@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
 
         var subcat_id = $(this).data('subcatid');
        // alert(subcat_id);
-
+        $('.load').show(); //show loading image
         $.ajax({
             type: "POST",
             url: '/site/index/'+subcat_id,
@@ -60,7 +60,7 @@ jQuery(document).ready(function () {
             dataType: 'html',
             success: function(data){
                 //alert(data);
-
+                $('.load').hide(); //hide loading image
                 $('.ajax_ad').html(data);
             }
         });
@@ -79,7 +79,10 @@ jQuery(document).ready(function () {
         var status = $(this).data('status');
         var currentuser = $(this).data('currentuser');
         //alert(user_id);
-        if(currentuser==user_id){
+        if(!currentuser){
+            alert('Только зарегистрированные пользователи могут голосовать!');
+        }
+        else if(currentuser==user_id){
             alert('Вы не можете госовать сами за себя!');
         }
         else {

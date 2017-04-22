@@ -23,7 +23,11 @@ $this->title = 'Доска объявлений';
 
         </div>
     </div>
+    <div class=" text-center load">
+        <img src="/frontend/web/uploads/loading.gif"  width="50" height="50"  alt="loading">
+    </div>
     <br />
+
     <hr />
     <div class="ajax_ad">
     <div class="row text-center slideanim">

@@ -43,8 +43,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
         $menuItems = [
+            ['label' => 'Главная', 'url' => ['/']],
             ['label' => 'Мой профиль', 'url' => ['/profile/'. $profile->id]],
             ['label' => 'Подать объявление', 'url' => ['/ad/create']],
+            ['label' => 'Мои объявления', 'url' => ['/ad']],
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
