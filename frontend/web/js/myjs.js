@@ -70,4 +70,48 @@ jQuery(document).ready(function () {
 
 
 
+
+
+    $(document).on('click', '.stars', function () {
+
+        var stars =$(this).val();
+        var user_id = $(this).data('user');
+        var status = $(this).data('status');
+        var currentuser = $(this).data('currentuser');
+        //alert(user_id);
+        if(currentuser==user_id){
+            alert('Вы не можете госовать сами за себя!');
+        }
+        else {
+            if (status > 0) {
+                alert('Вы уже проголосовали!');
+
+            } else {
+                alert('Спасибо за оценку!');
+
+                $.ajax({
+                    type: "POST",
+                    url: '/site/add-rating/',
+                    cache: false,
+                    data: {stars: stars, user_id: user_id, status: status, currentuser: currentuser},
+                    dataType: 'html',
+                     success: function(data){
+
+                     $('.ajax_rate').html(data);
+                     }
+                });
+            }
+        }
+       // $.post('add-rating',{rate:$(this).val()},function(d){
+           /* if(d>0)
+            {
+                alert('You already rated');
+            }else{
+                alert('Thanks For Rating');
+            }
+        });
+       */
+         // });
+    });
+
 });

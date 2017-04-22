@@ -55,6 +55,76 @@ body {
     background: #fff;
 }
 
+/* Rating*/
+
+.rate {
+
+    margin: 0 auto;
+  /*
+    border: 1px solid #ccc;
+    padding: 20px;*/
+}
+
+fieldset, label {
+  /*  width:200px;*/
+    margin: 0 5px;
+    padding: 0;
+    text-align:center;
+
+}
+
+.center {
+
+    text-align:center;
+}
+
+.rating {
+    border: none;
+    float: left;
+  text-align:center;
+    margin: 0 auto;
+    width:300px;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating > .half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label {
+    color: #777777;
+    float: right;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+
+.rating  > .filled {
+    color: #E4D900;
+
+}
+
+/* -- end Rating*/
+
+
+
+
 .wrap > .container {
     padding: 70px 15px 20px;
 }

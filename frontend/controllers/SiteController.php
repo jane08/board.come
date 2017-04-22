@@ -16,6 +16,8 @@ use common\models\Profile;
 use common\models\Category;
 use common\models\SubCategory;
 use common\models\Ad;
+use common\models\Rating;
+use common\models\User;
 use yii\data\Pagination;
 use common\models\AuthAssignment;
 use yii\web\Session;
@@ -145,10 +147,15 @@ class SiteController extends Controller
 
         $ad = Ad::find()->where(['id' => $id ])->one();
         $profile = Profile::find()->where(['user_id' => $ad->user_id ])->one();
+        $rating = Rating::find()->where(['entity_id' => $profile->user_id])->all();
+        $user=User::find()->where(['id' => Yii::$app->user->identity->id ])->one();
+        $rateuser = Rating::find()->where(['user_id' => $user->id, 'entity_id' => $profile->user_id, 'entity_type' =>'user'])->one();
 
         return $this->render('ad_details', [
             'ad' => $ad,
             'profile' => $profile,
+            'rating' => $rating,
+            'rateuser' => $rateuser,
 
         ]);
     }
@@ -212,7 +219,6 @@ class SiteController extends Controller
     public function actionProfileAds($id)
     {
 
-
         $profile = Profile::find()->where(['id' => $id ])->one();
         $ads = Ad::find()->where(['user_id' => $profile->user_id ])->all();
 
@@ -223,6 +229,52 @@ class SiteController extends Controller
         ]);
     }
 
+
+    public function actionAddRating()
+    {
+
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $stars = explode(":", $data['stars']);
+            $stars = $stars[0];
+            $user_id = explode(":", $data['user_id']);
+            $user_id = $user_id[0];
+            $status = explode(":", $data['status']);
+            $status = $status[0];
+            $currentuser = explode(":", $data['currentuser']);
+            $currentuser = $currentuser[0];
+
+            if($currentuser!=$user_id) {
+
+                if ($status == 0) {
+                    $rating = new Rating();
+                    $rating->user_id = Yii::$app->user->identity->id;
+                    $rating->entity_id = $user_id;
+                    $rating->entity_type = 'user';
+                    $rating->rate = $stars;
+                    $rating->status = 1;
+                    $rating->save();
+
+
+
+                    $profile = Profile::find()->where(['user_id' => $user_id ])->one();
+                    $rating = Rating::find()->where(['entity_id' => $profile->user_id])->all();
+                    $user=User::find()->where(['id' => Yii::$app->user->identity->id ])->one();
+                    $rateuser = Rating::find()->where(['user_id' => $user->id, 'entity_id' => $profile->user_id, 'entity_type' =>'user'])->one();
+
+                    return $this->renderAjax('show_rating', [
+
+                        'profile' => $profile,
+                        'rating' => $rating,
+                        'rateuser' => $rateuser,
+
+                    ]);
+
+
+                }
+            }
+        }
+    }
 
 
     /**
