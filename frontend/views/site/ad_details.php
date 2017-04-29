@@ -118,7 +118,17 @@ $this->title = $ad->title;
                         1 => "Плохо - 1 звезда",
                     ];
 
+					if (!Yii::$app->user->isGuest)
                     $current_user= Yii::$app->user->identity->id;
+					else
+					$current_user=0;
+				
+						if(isset($rateuser) || $rateuser!=0){
+										$status=$rateuser->status;
+									}
+									else{
+										$status=0;
+									}
                     ?>
 
 
@@ -134,8 +144,12 @@ $this->title = $ad->title;
                                      else{
                                      $class='not_filled';
                                      }
+									
+									
+									
+									
                                   ?>
-                                <input data-user="<?= $profile->user_id ?>" data-currentuser="<?=  $current_user ?>" data-status="<?= $rateuser->status ?>" class="stars <?= $class ?>" type="radio" id="star<?= $f ?>" name="rating" value="<?= $f ?>" />
+                                <input data-user="<?= $profile->user_id ?>" data-currentuser="<?=  $current_user ?>" data-status="<?= $status ?>" class="stars <?= $class ?>" type="radio" id="star<?= $f ?>" name="rating" value="<?= $f ?>" />
                                  <label class = "full <?= $class ?>" for="star<?= $f ?>" title="<?= $titles[$f] ?>"></label>
                                 <!-- <input class="stars <?/*= $class */?>" type="radio" id="star5" name="rating" value="5" />
                                  <label class = "full <?/*= $class */?>" for="star5" title="Awesome - 5 stars"></label>

@@ -61,6 +61,7 @@ class ProfileController extends Controller
     public function actionView($id)
     {
 
+	
         $model = $this->findModel($id);
 
 
@@ -127,9 +128,11 @@ class ProfileController extends Controller
 				 $files_usage = FilesUsage::find()
 								->where(['entity_id' => $id, 'entity_type' => 'profile'])
 								->one();
+			if(isset($files_usage)){
 				 $file = Files::find()
 							->where(['id' => $files_usage->file_id])
 							->one();
+			}
 					$basepath =  \Yii::$app->basePath;	
 							
 						if(isset($files_usage)){

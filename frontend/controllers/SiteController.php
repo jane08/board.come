@@ -93,7 +93,8 @@ class SiteController extends Controller
         else {
             $query = Ad::find();
         }
-        $session->destroy();
+        //$session->destroy();
+		$session->remove('subcat_id');
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>20]);
         $ads = $query->offset($pagination->offset)
@@ -148,9 +149,22 @@ class SiteController extends Controller
         $ad = Ad::find()->where(['id' => $id ])->one();
         $profile = Profile::find()->where(['user_id' => $ad->user_id ])->one();
         $rating = Rating::find()->where(['entity_id' => $profile->user_id])->all();
+		
+		if (!Yii::$app->user->isGuest)
         $user=User::find()->where(['id' => Yii::$app->user->identity->id ])->one();
+		
+		
+		if(isset($user)){
         $rateuser = Rating::find()->where(['user_id' => $user->id, 'entity_id' => $profile->user_id, 'entity_type' =>'user'])->one();
-
+		
+		}
+		else{
+			$rateuser=0;
+			
+		}
+		
+		
+		
         return $this->render('ad_details', [
             'ad' => $ad,
             'profile' => $profile,
@@ -351,6 +365,7 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+		
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
 
@@ -369,6 +384,9 @@ class SiteController extends Controller
 				$profile->save();
 				
                 if (Yii::$app->getUser()->login($user)) {
+					
+				
+					
                     Yii::$app->response->redirect(['profile/update/'. $profile->id]);
                 }
             }

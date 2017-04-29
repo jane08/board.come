@@ -9,7 +9,7 @@ use common\models\FilesUsage;
 /* @var $this yii\web\View */
 /* @var $model common\models\Profile */
 
-$this->title = $model->id;
+$this->title = $profile->id;
 //$this->params['breadcrumbs'][] = ['label' => 'Профиль', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -40,10 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
             $files_usage = FilesUsage::find()
                 ->where(['entity_id' => $profile->id, 'entity_type' => 'profile'])
                 ->one();
+				if(isset($files_usage)){
             $file = Files::find()
                 ->where(['id' => $files_usage->file_id])
                 ->one();
-
+				
+				$path = '@web'.$file->path;
+				}
+				else{
+					$path = '@web/uploads/user.png';
+				}
+				
             $url = '/ad';
             Yii::setAlias('@myCssAlias', $url);
             ?>
@@ -51,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="thumbnail">
                   
-					<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
+					<?php echo Html::img($path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
                     <h3><?= $profile->fio ?></h3>
                     <p>Email: <?= $profile->user->email ?> </p>
                     <p>Логин: <?= $profile->user->username ?> </p>

@@ -9,7 +9,7 @@ use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 
-$this->title = $ad->title;
+
 ?>
 
 

@@ -10,7 +10,7 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-		'authManager' => [ 'class' => 'yii\rbac\DbManager', 'defaultRoles' => ['guest'], ],
+		'authManager' => [ 'class' => 'frontend\components\DbManager', 'defaultRoles' => ['guest'], ],
         'view' => [
             'theme' => [
                 'pathMap' => [
