@@ -50,7 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                 <div class="thumbnail">
-                    <img src="/frontend/web/<?= $file->path ?>" width="400" height="300" alt="pic_1">
+                  
+					<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
                     <h3><?= $profile->fio ?></h3>
                     <p>Email: <?= $profile->user->email ?> </p>
                     <p>Логин: <?= $profile->user->username ?> </p>

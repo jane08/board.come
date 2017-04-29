@@ -24,7 +24,8 @@ $this->title = 'Доска объявлений';
         </div>
     </div>
     <div class=" text-center load">
-        <img src="/frontend/web/uploads/loading.gif"  width="50" height="50"  alt="loading">
+        <!--<img src="/frontend/web/uploads/loading.gif"  width="50" height="50"  alt="loading">-->
+		<?php echo Html::img('@web/uploads/loading.gif', ["alt"=>"loading","width"=>"50", "height"=>"50"]) ?>
     </div>
     <br />
 
@@ -48,7 +49,8 @@ $this->title = 'Доска объявлений';
             ?>
         <div class="col-sm-4">
             <div class="thumbnail">
-                <img src="/frontend/web/<?= $file->path ?>"  width="400" height="300" alt="pic_<?= $f ?>">
+               <?php //echo Html::img(Yii::$app->urlManager->createUrl($file->path)); ?>
+				<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_$f"]) ?>
                 <h3><?= \yii\helpers\StringHelper::truncate($ad->title,20,'...') ?></h3>
                 <p> <h2><?= $ad->price ?> $</h2></p>
                 <p> <?= Html::a('Подробнее', Yii::getAlias('@myCssAlias'), ['class' => 'button9']) ?> </p>

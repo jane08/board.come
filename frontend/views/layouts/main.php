@@ -11,6 +11,7 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use common\models\Profile;
 
+if (!Yii::$app->user->isGuest)
 $profile= Profile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 
 AppAsset::register($this);

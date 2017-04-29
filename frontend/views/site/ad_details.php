@@ -35,7 +35,8 @@ $this->title = $ad->title;
             ?>
             <div class="col-sm-8">
                 <div class="thumbnail">
-                    <img src="/frontend/web/<?= $file->path ?>" width="400" height="300" alt="pic_<?= $f ?>">
+                   
+					<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_$f"]) ?>
                     <h3><?= $ad->title ?></h3>
                     <p>
                     <h2><?= $ad->price ?> $</h2></p>
@@ -78,7 +79,8 @@ $this->title = $ad->title;
 
             <div class="col-sm-4">
                 <div class="thumbnail">
-                    <img src="/frontend/web/<?= $file->path ?>" width="400" height="300" alt="pic_1">
+                   
+					<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
                     <h3><?= $profile->fio ?></h3>
 
                     <h3>Телефон:<?= $profile->phone ?> </h3>
