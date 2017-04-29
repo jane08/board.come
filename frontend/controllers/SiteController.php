@@ -385,9 +385,9 @@ class SiteController extends Controller
 				
                 if (Yii::$app->getUser()->login($user)) {
 					
-				
+				Yii::$app->session->setFlash('success', "Регистрация прошла успешно");
 					
-                    Yii::$app->response->redirect(['profile/update/'. $profile->id]);
+                   return Yii::$app->response->redirect(['profile/update/'. $profile->id]);
                 }
             }
         }

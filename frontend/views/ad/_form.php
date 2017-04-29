@@ -18,7 +18,13 @@ $sub_category = ArrayHelper::map(SubCategory::find()->all(), 'id', 'name');
 ?>
 
 <div class="ad-form">
-
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+  <div class="alert alert-success alert-dismissable">
+  <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+  
+  <?php echo Yii::$app->session->getFlash('success') ?>
+  </div>
+<?php endif; ?>
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?php
