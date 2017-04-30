@@ -27,16 +27,22 @@ $this->title = $ad->title;
             $files_usage = FilesUsage::find()
                 ->where(['entity_id' => $ad->id, 'entity_type' => 'ad'])
                 ->one();
-            $file = Files::find()
-                ->where(['id' => $files_usage->file_id])
-                ->one();
+            if(isset($files_usage)){		
+				$file = Files::find()
+					->where(['id' => $files_usage->file_id])
+					->one();
+					$path='@web'.$file->path;
+			}
+			else{
+					$path= '@web/uploads/ad.jpg';
+			}
 
 
             ?>
             <div class="col-sm-8">
                 <div class="thumbnail">
                    
-					<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_$f"]) ?>
+					<?php echo Html::img($path, ["width"=>400, "height"=>300, "alt"=>"pic_$f"]) ?>
                     <h3><?= $ad->title ?></h3>
                     <p>
                     <h2><?= $ad->price ?> $</h2></p>
@@ -69,10 +75,15 @@ $this->title = $ad->title;
             $files_usage = FilesUsage::find()
                 ->where(['entity_id' => $profile->id, 'entity_type' => 'profile'])
                 ->one();
-            $file = Files::find()
-                ->where(['id' => $files_usage->file_id])
-                ->one();
-
+           if(isset($files_usage)){		
+				$file = Files::find()
+					->where(['id' => $files_usage->file_id])
+					->one();
+					$path='@web'.$file->path;
+			}
+			else{
+					$path= '@web/uploads/user.png';
+			}
             $url = '/profile-ads/' . ($profile->id);
             Yii::setAlias('@myCssAlias', $url);
             ?>
@@ -80,7 +91,7 @@ $this->title = $ad->title;
             <div class="col-sm-4">
                 <div class="thumbnail">
                    
-					<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
+					<?php echo Html::img($path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
                     <h3><?= $profile->fio ?></h3>
 
                     <h3>Телефон:<?= $profile->phone ?> </h3>

@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use common\models\Files;
+use common\models\FilesUsage;
 /* @var $this yii\web\View */
 /* @var $model common\models\Ad */
 
@@ -39,5 +40,20 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
    
-	<?php echo Html::img('@web'.$file->path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
+   <?php
+   $files_usage = FilesUsage::find()
+            ->where(['entity_id' => $model->id, 'entity_type' => 'ad'])
+            ->one();
+	if(isset( $files_usage)){		
+        $file = Files::find()
+            ->where(['id' => $files_usage->file_id])
+            ->one();
+			$path='@web'.$file->path;
+	}
+	else{
+			$path= '@web/uploads/ad.jpg';
+	}
+   ?>
+   
+	<?php echo Html::img($path, ["width"=>400, "height"=>300, "alt"=>"pic_1"]) ?>
 </div>
