@@ -67,6 +67,9 @@ class AdController extends Controller
             ->where(['id' => $files_usage->file_id])
             ->one();
 			*/
+			$model->title=  Html::encode($model->title);
+			$model->description=  Html::encode($model->description);
+			$model->price=  Html::encode($model->price);
         if (Yii::$app->user->identity->id != $model->user_id) {
             throw new ForbiddenHttpException('Вы не можете редактировать чужие объявления!');
         }
@@ -95,9 +98,7 @@ class AdController extends Controller
             $model->created_at = $date->format('Y-m-d H:i:s');
             $model->updated_at = $date->format('Y-m-d H:i:s');
 			
-			$model->title=  Html::encode($model->title);
-			$model->description=  Html::encode($model->description);
-			$model->price=  Html::encode($model->price);
+			
 
             $model->save();
 
@@ -127,6 +128,10 @@ class AdController extends Controller
     {
 
         $model = $this->findModel($id);
+		
+			$model->title=  Html::encode($model->title);
+			$model->description=  Html::encode($model->description);
+			$model->price=  Html::encode($model->price);
 
         if (Yii::$app->user->identity->id != $model->user_id) {
             throw new ForbiddenHttpException('Вы не можете редактировать чужие объявления!');
@@ -141,9 +146,7 @@ class AdController extends Controller
         if ($model->load(Yii::$app->request->post())  ) {
             $date = new  \DateTime('now', new \DateTimeZone('Europe/Kiev'));
             $model->updated_at = $date->format('Y-m-d H:i:s');
-			$model->title=  Html::encode($model->title);
-			$model->description=  Html::encode($model->description);
-			$model->price=  Html::encode($model->price);
+			
             $model->save();
 
 

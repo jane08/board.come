@@ -41,7 +41,7 @@ use yii\web\ForbiddenHttpException;
             <div class="thumbnail">
                 
 				<?php echo Html::img($path, ["width"=>400, "height"=>300, "alt"=>"pic_$f"]) ?>
-                <h3><?= \yii\helpers\StringHelper::truncate($ad->title,20,'...') ?></h3>
+                <h3><?= \yii\helpers\StringHelper::truncate(Html::encode($ad->title),20,'...') ?></h3>
                 <p> <h2><?= $ad->price ?> $</h2></p>
                 <p> <?= Html::a('Подробнее', Yii::getAlias('@myCssAlias'), ['class' => 'button9']) ?> </p>
             </div>

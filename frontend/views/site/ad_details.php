@@ -43,11 +43,11 @@ $this->title = $ad->title;
                 <div class="thumbnail">
                    
 					<?php echo Html::img($path, ["width"=>400, "height"=>300, "alt"=>"pic_$f"]) ?>
-                    <h3><?= $ad->title ?></h3>
+                    <h3><?= Html::encode($ad->title) ?></h3>
                     <p>
                     <h2><?= $ad->price ?> $</h2></p>
                     <hr/>
-                    <p class="left"><?= $ad->description ?> </p>
+                    <p class="left"><?= Html::encode($ad->description) ?> </p>
                 </div>
 
                 <!-- Comments -->

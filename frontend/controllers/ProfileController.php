@@ -63,7 +63,9 @@ class ProfileController extends Controller
 
 	
         $model = $this->findModel($id);
-
+			$model->fio=  Html::encode($model->fio);
+			$model->phone=  Html::encode($model->phone);
+			$model->address=  Html::encode($model->address);
 
         if (Yii::$app->user->identity->id != $model->user_id) {
             throw new ForbiddenHttpException('Вы не можете заходить в чужой профиль!');
@@ -117,7 +119,9 @@ class ProfileController extends Controller
 		$model->phone=  Html::encode($model->phone);
 		$model->address=  Html::encode($model->address);
 		*/
-		
+			$model->fio=  Html::encode($model->fio);
+			$model->phone=  Html::encode($model->phone);
+			$model->address=  Html::encode($model->address);
 		 $picture = new Files();
          $files_usage = FilesUsage::find()
             ->where(['entity_id' => $model->id,'entity_type' => 'profile'])
@@ -125,9 +129,7 @@ class ProfileController extends Controller
 
         if ($model->load(Yii::$app->request->post())  ) {
 			
-			$model->fio=  Html::encode($model->fio);
-			$model->phone=  Html::encode($model->phone);
-			$model->address=  Html::encode($model->address);
+			
 			$model->save();
 			if ($picture->load(Yii::$app->request->post()) ) {
 				
