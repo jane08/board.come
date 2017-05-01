@@ -1,7 +1,6 @@
 jQuery(document).ready(function () {
 	
 
-
 //Показать подкатегории
 	$(document).on('change', '.category', function () {
 		

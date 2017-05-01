@@ -14,7 +14,7 @@ use common\models\Files;
 use common\models\FilesUsage;
 use yii\helpers\BaseFileHelper;
 use common\models\User;
-
+use yii\helpers\Html;
 /**
  * ProfileController implements the CRUD actions for Profile model.
  */
@@ -112,14 +112,23 @@ class ProfileController extends Controller
         if (Yii::$app->user->identity->id != $model->user_id) {
             throw new ForbiddenHttpException('Вы не можете заходить в чужой профиль!');
         }
+		/*
+		$model->fio=  Html::encode($model->fio);
+		$model->phone=  Html::encode($model->phone);
+		$model->address=  Html::encode($model->address);
+		*/
 		
 		 $picture = new Files();
          $files_usage = FilesUsage::find()
             ->where(['entity_id' => $model->id,'entity_type' => 'profile'])
             ->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())  ) {
 			
+			$model->fio=  Html::encode($model->fio);
+			$model->phone=  Html::encode($model->phone);
+			$model->address=  Html::encode($model->address);
+			$model->save();
 			if ($picture->load(Yii::$app->request->post()) ) {
 				
 				if(!empty(UploadedFile::getInstances($picture, 'file'))){

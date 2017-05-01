@@ -9,6 +9,7 @@ use kartik\file\FileInput;
 /* @var $this yii\web\View */
 /* @var $model common\models\Profile */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="profile-form">
@@ -17,7 +18,7 @@ use kartik\file\FileInput;
 
    
 
-    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fio')->textInput(['maxlength' => true , 'encode'=>true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 

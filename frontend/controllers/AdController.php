@@ -14,6 +14,7 @@ use yii\web\UploadedFile;
 use common\models\Files;
 use common\models\FilesUsage;
 use yii\helpers\BaseFileHelper;
+use yii\helpers\Html;
 
 /**
  * AdController implements the CRUD actions for Ad model.
@@ -93,6 +94,10 @@ class AdController extends Controller
 
             $model->created_at = $date->format('Y-m-d H:i:s');
             $model->updated_at = $date->format('Y-m-d H:i:s');
+			
+			$model->title=  Html::encode($model->title);
+			$model->description=  Html::encode($model->description);
+			$model->price=  Html::encode($model->price);
 
             $model->save();
 
@@ -136,6 +141,9 @@ class AdController extends Controller
         if ($model->load(Yii::$app->request->post())  ) {
             $date = new  \DateTime('now', new \DateTimeZone('Europe/Kiev'));
             $model->updated_at = $date->format('Y-m-d H:i:s');
+			$model->title=  Html::encode($model->title);
+			$model->description=  Html::encode($model->description);
+			$model->price=  Html::encode($model->price);
             $model->save();
 
 
