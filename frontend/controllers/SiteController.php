@@ -159,7 +159,7 @@ class SiteController extends Controller
 		
 		}
 		else{
-			$rateuser=0;
+			$rateuser=Null;
 			
 		}
 		

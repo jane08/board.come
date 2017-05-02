@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use common\models\Files;
 use common\models\FilesUsage;
 use kartik\file\FileInput;
+use frontend\assets\AddressAsset;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Profile */
@@ -70,36 +71,9 @@ use kartik\file\FileInput;
 
 </div>
 <!-- Auto complete addresses script -->
-<script>
 
-
-    function initAutocomplete() {
-        autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById("autocomplete")),
-            {types: ['geocode']});
-
-    }
-
-
-    function geolocate() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var geolocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                var circle = new google.maps.Circle({
-                    center: geolocation,
-                    radius: position.coords.accuracy
-                });
-                autocomplete.setBounds(circle.getBounds());
-            });
-        }
-    }
-
-
-</script>
-
-
+<?php
+AddressAsset::register($this);
+?>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDG8UcqzVNCTcovPhkz9D-LwzLdUKPojzk&libraries=places&callback=initAutocomplete"
         async defer></script>

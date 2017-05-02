@@ -14,6 +14,13 @@ use common\models\Profile;
 if (!Yii::$app->user->isGuest)
 $profile= Profile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 
+if(isset($profile)){
+	$profile_id=$profile->id;
+}
+else{
+	$profile_id='';
+}
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -45,7 +52,7 @@ AppAsset::register($this);
     } else {
         $menuItems = [
             ['label' => 'Главная', 'url' => ['/']],
-            ['label' => 'Мой профиль', 'url' => ['/profile/'. $profile->id]],
+            ['label' => 'Мой профиль', 'url' => ['/profile/'. $profile_id]],
             ['label' => 'Подать объявление', 'url' => ['/ad/create']],
             ['label' => 'Мои объявления', 'url' => ['/ad']],
         ];

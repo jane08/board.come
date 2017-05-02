@@ -134,7 +134,7 @@ $this->title = $ad->title;
 					else
 					$current_user=0;
 				
-						if(isset($rateuser) || $rateuser!=0){
+						if(isset($rateuser) && $rateuser!=Null){
 										$status=$rateuser->status;
 									}
 									else{
